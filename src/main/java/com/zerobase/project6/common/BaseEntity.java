@@ -1,4 +1,4 @@
-package com.zerobase.project6.user.domain.model;
+package com.zerobase.project6.common;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;

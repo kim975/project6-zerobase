@@ -1,5 +1,6 @@
 package com.zerobase.project6.user.domain.model;
 
+import com.zerobase.project6.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,7 +10,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Customer extends BaseEntity{
+public class Customer extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

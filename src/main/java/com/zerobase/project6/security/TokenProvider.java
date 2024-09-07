@@ -23,7 +23,7 @@ public class TokenProvider {
 
     private static final long TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24;
     private static final String KEY_ROLES = "roles";
-    private LoginService loginService;
+    private final LoginService loginService;
 
     public String generateToken(UserSecurity userSecurity) {
 

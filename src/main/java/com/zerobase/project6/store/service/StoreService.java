@@ -9,6 +9,8 @@ import com.zerobase.project6.user.domain.model.StoreOwner;
 import com.zerobase.project6.user.domain.repository.StoreOwnerRepository;
 import com.zerobase.project6.util.TokenGenerator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,6 +65,17 @@ public class StoreService {
         }
 
         storeRepository.delete(store);
+    }
+
+    public Page<StoreInfo> getAllStore(Pageable pageable) {
+        return storeRepository.findAll(pageable).map(StoreInfo::of);
+    }
+
+    public StoreInfo getStoreByStoreToken(String storeToken) {
+        return StoreInfo.of(
+                storeRepository.findByStoreToken(storeToken)
+                        .orElseThrow(() -> new BaseException(StoreErrorCode.NOT_FOUND_STORE))
+        );
     }
 
 }

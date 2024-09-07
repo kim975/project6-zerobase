@@ -24,4 +24,12 @@ public class SignUpController {
                 );
     }
 
+    @PostMapping("/store-owner")
+    public ResponseEntity<SignUpDto.RegisterStoreOwnerResponse> registerStoreOwner(
+            @RequestBody SignUpDto.RegisterStoreOwnerRequest request
+    ) {
+        return ResponseEntity.ok(
+                SignUpDto.RegisterStoreOwnerResponse.of(signUpService.signUpStoreOwner(request.toCommand()))
+        );
+    }
 }

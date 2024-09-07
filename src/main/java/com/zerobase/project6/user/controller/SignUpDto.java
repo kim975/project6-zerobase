@@ -33,11 +33,44 @@ public class SignUpDto {
         private String email;
         private String customerToken;
 
-        public static RegisterCustomerResponse of(SignUpInfo signUpInfo) {
+        public static RegisterCustomerResponse of(SignUpInfo.CustomerInfo signUpInfo) {
             return RegisterCustomerResponse.builder()
                     .loginId(signUpInfo.getLoginId())
                     .email(signUpInfo.getEmail())
                     .customerToken(signUpInfo.getCustomerToken())
+                    .build();
+        }
+    }
+
+    @Data
+    public static class RegisterStoreOwnerRequest {
+        private String loginId;
+        private String password;
+        private String email;
+
+        public SignUpCommand.RegisterStoreOwner toCommand() {
+            return SignUpCommand.RegisterStoreOwner.builder()
+                    .loginId(loginId)
+                    .password(password)
+                    .email(email)
+                    .build();
+        }
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class RegisterStoreOwnerResponse {
+        private String loginId;
+        private String email;
+        private String storeOwnerToken;
+
+        public static RegisterStoreOwnerResponse of(SignUpInfo.StoreOwnerInfo signUpInfo) {
+            return RegisterStoreOwnerResponse.builder()
+                    .loginId(signUpInfo.getLoginId())
+                    .email(signUpInfo.getEmail())
+                    .storeOwnerToken(signUpInfo.getStoreOwnerToken())
                     .build();
         }
     }

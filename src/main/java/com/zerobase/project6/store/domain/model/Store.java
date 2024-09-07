@@ -17,6 +17,7 @@ public class Store extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String storeToken;
 
     private Long storeOwnerId;

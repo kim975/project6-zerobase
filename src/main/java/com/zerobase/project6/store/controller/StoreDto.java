@@ -18,6 +18,35 @@ public class StoreDto {
                     .description(description)
                     .build();
         }
+    }
 
+    @Data
+    public static class UpdateStore {
+
+        private String storeToken;
+        private String name;
+        private String address;
+        private String description;
+
+        public StoreCommand.UpdateStore toCommand() {
+            return StoreCommand.UpdateStore.builder()
+                    .storeToken(storeToken)
+                    .name(name)
+                    .address(address)
+                    .description(description)
+                    .build();
+        }
+    }
+
+    @Data
+    public static class DeleteStore {
+
+        private String storeToken;
+
+        public StoreCommand.DeleteStore toCommand() {
+            return StoreCommand.DeleteStore.builder()
+                    .storeToken(storeToken)
+                    .build();
+        }
     }
 }

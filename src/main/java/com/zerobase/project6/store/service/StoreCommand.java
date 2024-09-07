@@ -22,7 +22,22 @@ public class StoreCommand {
                     .description(description)
                     .build();
         }
+    }
+
+    @Data
+    @Builder
+    public static class UpdateStore {
+
+        private String storeToken;
+        private String name;
+        private String address;
+        private String description;
 
     }
 
+    @Data
+    @Builder
+    public static class DeleteStore {
+        private String storeToken;
+    }
 }

@@ -5,10 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,6 +22,25 @@ public class StoreController {
     ) {
         String storeOwnerToken = authentication.getName();
         return ResponseEntity.ok(storeService.registerStore(request.toCommand(), storeOwnerToken));
+    }
+
+    @PutMapping
+    public ResponseEntity<String> updateStore(
+            Authentication authentication,
+            @RequestBody StoreDto.UpdateStore request
+    ) {
+        String storeOwnerToken = authentication.getName();
+        return ResponseEntity.ok(storeService.updateStore(request.toCommand(), storeOwnerToken));
+    }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteStore(
+            Authentication authentication,
+            @RequestBody StoreDto.DeleteStore request
+    ) {
+        String storeOwnerToken = authentication.getName();
+        storeService.deleteStore(request.toCommand(), storeOwnerToken);
+        return ResponseEntity.ok().build();
     }
 
 }

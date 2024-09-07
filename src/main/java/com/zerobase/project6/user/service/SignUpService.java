@@ -2,11 +2,14 @@ package com.zerobase.project6.user.service;
 
 import com.zerobase.project6.user.domain.model.Customer;
 import com.zerobase.project6.user.domain.model.StoreOwner;
+import com.zerobase.project6.user.domain.model.common.UserRole;
 import com.zerobase.project6.user.domain.repository.CustomerRepository;
 import com.zerobase.project6.user.domain.repository.StoreOwnerRepository;
 import com.zerobase.project6.util.TokenGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +22,7 @@ public class SignUpService {
 
         Customer customer = command.toEntity();
         customer.setCustomerToken(TokenGenerator.randomUUID());
+        customer.setRoles(List.of(UserRole.ROLE_CUSTOMER));
 
         return SignUpInfo.CustomerInfo.of(customerRepository.save(customer));
     }
@@ -27,6 +31,7 @@ public class SignUpService {
 
         StoreOwner storeOwner = command.toEntity();
         storeOwner.setStoreOwnerToken(TokenGenerator.randomUUID());
+        storeOwner.setRoles(List.of(UserRole.ROLE_STORE_OWNER));
 
         return SignUpInfo.StoreOwnerInfo.of(storeOwnerRepository.save(storeOwner));
     }

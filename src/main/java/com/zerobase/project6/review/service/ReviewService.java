@@ -8,7 +8,10 @@ import com.zerobase.project6.review.domain.repository.ReviewRepository;
 import com.zerobase.project6.store.domain.model.Store;
 import com.zerobase.project6.store.domain.repository.StoreRepository;
 import com.zerobase.project6.user.domain.model.Customer;
+import com.zerobase.project6.user.domain.model.StoreOwner;
+import com.zerobase.project6.user.domain.model.common.UserType;
 import com.zerobase.project6.user.domain.repository.CustomerRepository;
+import com.zerobase.project6.user.domain.repository.StoreOwnerRepository;
 import com.zerobase.project6.util.TokenGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,7 @@ public class ReviewService {
     private final StoreRepository storeRepository;
     private final CustomerRepository customerRepository;
     private final StoreReservationRepository storeReservationRepository;
+    private final StoreOwnerRepository storeOwnerRepository;
 
     public String registerReview(ReviewCommand.RegisterReview command) {
 
@@ -78,4 +82,35 @@ public class ReviewService {
         storeRepository.save(store);
     }
 
+    public void deleteReview(String reviewToken, String userToken, UserType userType) {
+
+        Review review = reviewRepository.findByReviewToken(reviewToken)
+                .orElseThrow(() -> new BaseException(ReviewErrorCode.NOT_FOUND_REVIEW));
+
+        if (UserType.CUSTOMER.equals(userType)) {
+
+            Customer customer = customerRepository.findByCustomerToken(userToken)
+                    .orElseThrow(() -> new BaseException(UserErrorCode.NOT_FOUND_USER));
+
+            if (!review.getCustomerId().equals(customer.getId())) throw new BaseException(ReviewErrorCode.DELETE_IS_REVIEWER_OR_STORE_OWNER);
+
+            reviewRepository.delete(review);
+
+        } else if(UserType.STORE_OWNER.equals(userType)) {
+
+            StoreOwner storeOwner = storeOwnerRepository.findByStoreOwnerToken(userToken)
+                    .orElseThrow(() -> new BaseException(UserErrorCode.NOT_FOUND_USER));
+
+            Store reviewStore = storeRepository.findById(review.getStoreId())
+                    .orElseThrow(() -> new BaseException(StoreErrorCode.NOT_FOUND_STORE));
+
+            if (!reviewStore.getStoreOwnerId().equals(storeOwner.getId())) throw new BaseException(ReviewErrorCode.DELETE_IS_REVIEWER_OR_STORE_OWNER);
+
+            reviewRepository.delete(review);
+
+        } else {
+            throw new BaseException(ReviewErrorCode.DELETE_IS_REVIEWER_OR_STORE_OWNER);
+        }
+
+    }
 }

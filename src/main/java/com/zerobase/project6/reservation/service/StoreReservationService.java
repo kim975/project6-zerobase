@@ -1,6 +1,7 @@
 package com.zerobase.project6.reservation.service;
 
 import com.zerobase.project6.exception.BaseException;
+import com.zerobase.project6.exception.ReservationErrorCode;
 import com.zerobase.project6.exception.StoreErrorCode;
 import com.zerobase.project6.exception.UserErrorCode;
 import com.zerobase.project6.reservation.domain.model.StoreReservation;
@@ -13,6 +14,9 @@ import com.zerobase.project6.util.TokenGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 @Service
 @Transactional
@@ -40,6 +44,30 @@ public class StoreReservationService {
                 .build();
 
         return storeReservationRepository.save(reservation).getReservationToken();
+    }
+
+    public void checkInReservation(StoreReservationCommand.CheckInReservation command) {
+        StoreReservation storeReservation = storeReservationRepository.findByReservationToken(command.getReservationToken())
+                .orElseThrow(() -> new BaseException(ReservationErrorCode.NOT_FOUND_RESERVATION));
+
+        Customer customer = customerRepository.findByCustomerToken(command.getCustomerToken())
+                .orElseThrow(() -> new BaseException(UserErrorCode.NOT_FOUND_USER));
+
+        if (!storeReservation.getCustomerId().equals(customer.getId())) {
+            throw new BaseException(ReservationErrorCode.DIFFERENT_RESERVATION_CUSTOMER);
+        }
+
+        long diffMin = Duration.between(storeReservation.getReservationDate(),LocalDateTime.now()).toMinutes();
+
+        if (diffMin > 30) {
+            throw new BaseException(ReservationErrorCode.TOO_EARLY_CHECK_IN);
+        }
+
+        if (diffMin < 10) {
+            throw new BaseException(ReservationErrorCode.TOO_LATE_CHECK_IN);
+        }
+
+        storeReservation.setVisitedYn(true);
     }
 
 }

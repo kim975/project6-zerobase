@@ -14,6 +14,12 @@ public class StoreReservationCommand {
         private String customerToken;
         private String storeToken;
         private LocalDateTime reservationDate;
+    }
 
+    @Data
+    @Builder
+    public static class CheckInReservation {
+        private String customerToken;
+        private String reservationToken;
     }
 }

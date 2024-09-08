@@ -24,5 +24,6 @@ public class Store extends BaseEntity {
     private String address;
     private String description;
     private Double starPoint;
+    private Long starPointCount;
 
 }

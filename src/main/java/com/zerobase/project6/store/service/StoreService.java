@@ -29,6 +29,8 @@ public class StoreService {
 
         Store store = command.toEntity(storeOwner.getId());
         store.setStoreToken(TokenGenerator.randomUUID());
+        store.setStarPoint(0.0);
+        store.setStarPointCount(0L);
 
         return storeRepository.save(store).getStoreToken();
     }

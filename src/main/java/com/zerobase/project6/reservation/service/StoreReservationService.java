@@ -57,7 +57,7 @@ public class StoreReservationService {
             throw new BaseException(ReservationErrorCode.DIFFERENT_RESERVATION_CUSTOMER);
         }
 
-        long diffMin = Duration.between(storeReservation.getReservationDate(),LocalDateTime.now()).toMinutes();
+        long diffMin = Duration.between(storeReservation.getReservationDate(), LocalDateTime.now()).toMinutes();
 
         if (diffMin > 30) {
             throw new BaseException(ReservationErrorCode.TOO_EARLY_CHECK_IN);

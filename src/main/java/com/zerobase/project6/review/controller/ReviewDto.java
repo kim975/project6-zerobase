@@ -24,4 +24,20 @@ public class ReviewDto {
         }
     }
 
+    @Data
+    public static class UpdateReview {
+        private String reviewToken;
+
+        private String text;
+        private Double starPoint;
+
+        public ReviewCommand.UpdateReview toCommand(String customerToken) {
+            return ReviewCommand.UpdateReview.builder()
+                    .customerToken(customerToken)
+                    .reviewToken(reviewToken)
+                    .text(text)
+                    .starPoint(starPoint)
+                    .build();
+        }
+    }
 }

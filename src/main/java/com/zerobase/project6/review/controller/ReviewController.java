@@ -33,9 +33,9 @@ public class ReviewController {
     @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<String> updateReview(
             Authentication authentication,
-            @RequestBody ReviewDto.RegisterReview request
+            @RequestBody ReviewDto.UpdateReview request
     ) {
-        return ResponseEntity.ok(reviewService.registerReview(request.toCommand(authentication.getName())));
+        return ResponseEntity.ok(reviewService.updateReview(request.toCommand(authentication.getName())));
     }
 
     @DeleteMapping("/{reviewToken}")

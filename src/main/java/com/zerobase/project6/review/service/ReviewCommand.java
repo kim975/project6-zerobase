@@ -5,6 +5,7 @@ import lombok.Data;
 
 public class ReviewCommand {
 
+
     @Data
     @Builder
     public static class RegisterReview {
@@ -16,4 +17,13 @@ public class ReviewCommand {
         private Double starPoint;
     }
 
+    @Data
+    @Builder
+    public static class UpdateReview {
+        private String customerToken;
+        private String reviewToken;
+
+        private String text;
+        private Double starPoint;
+    }
 }

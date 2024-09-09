@@ -56,6 +56,26 @@ public class ReviewService {
         return review.getReviewToken();
     }
 
+    public String updateReview(ReviewCommand.UpdateReview command) {
+        Review review = reviewRepository.findByReviewToken(command.getReviewToken())
+                .orElseThrow(() -> new BaseException(ReviewErrorCode.NOT_FOUND_REVIEW));
+
+        Customer customer = customerRepository.findByCustomerToken(command.getCustomerToken())
+                .orElseThrow(() -> new BaseException(UserErrorCode.NOT_FOUND_USER));
+
+        if (!review.getCustomerId().equals(customer.getId())) throw new BaseException(ReviewErrorCode.DELETE_IS_REVIEWER_OR_STORE_OWNER);
+
+        Store store = storeRepository.findById(review.getStoreId())
+                .orElseThrow(() -> new BaseException(StoreErrorCode.NOT_FOUND_STORE));
+
+        updateStoreStarPoint(store, command.getStarPoint(), review.getStarPoint());
+
+        review.setText(command.getText());
+        review.setStarPoint(command.getStarPoint());
+
+        return review.getReviewToken();
+    }
+
     private void registerReviewValidation(Customer customer, Store store, StoreReservation storeReservation) {
 
         if (!customer.getId().equals(storeReservation.getCustomerId())) {
@@ -73,11 +93,23 @@ public class ReviewService {
 
     private void addStoreStarPoint(Store store, Review review) {
 
-        long startPointCount = store.getStarPointCount();
-        double totalStartPoint = store.getStarPoint() * startPointCount;
+        long starPointCount = store.getStarPointCount();
+        double totalStartPoint = store.getStarPoint() * starPointCount;
 
-        store.setStarPoint(totalStartPoint + review.getStarPoint() / (startPointCount + 1));
-        store.setStarPointCount(startPointCount + 1);
+        store.setStarPoint(totalStartPoint + review.getStarPoint() / (starPointCount + 1));
+        store.setStarPointCount(starPointCount + 1);
+
+        storeRepository.save(store);
+    }
+
+    private void updateStoreStarPoint(Store store, double currentStarPoint, double oldStarPoint) {
+
+        long starPointCount = store.getStarPointCount();
+        double totalStartPoint = store.getStarPoint() * starPointCount;
+
+        totalStartPoint = totalStartPoint - oldStarPoint + currentStarPoint;
+
+        store.setStarPoint(totalStartPoint / starPointCount);
 
         storeRepository.save(store);
     }
@@ -113,4 +145,6 @@ public class ReviewService {
         }
 
     }
+
+
 }

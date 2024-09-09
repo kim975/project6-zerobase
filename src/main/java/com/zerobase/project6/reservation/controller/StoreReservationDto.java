@@ -6,8 +6,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
+/**
+ * client request, response DTO
+ */
 public class StoreReservationDto {
 
+    /**
+     * 예약하기 DTO
+     */
     @Data
     public static class ReservationRequest {
 

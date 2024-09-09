@@ -18,6 +18,13 @@ public class LoginController {
     private final LoginService longinService;
     private final TokenProvider tokenProvider;
 
+    /**
+     * 
+     * 사용자용 로그인 
+     * 
+     * @param request
+     * @return
+     */
     @PostMapping("/customer")
     public ResponseEntity<String> loginCustomer(
             @RequestBody LoginDto request
@@ -26,6 +33,13 @@ public class LoginController {
         return ResponseEntity.ok(tokenProvider.generateToken(customerInfo));
     }
 
+    /**
+     * 
+     * 가게 관리자 로그인
+     * 
+     * @param request
+     * @return
+     */
     @PostMapping("/store-owner")
     public ResponseEntity<String> loginStoreOwner(
             @RequestBody LoginDto request

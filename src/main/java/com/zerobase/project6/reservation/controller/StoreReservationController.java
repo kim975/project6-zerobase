@@ -16,6 +16,14 @@ public class StoreReservationController {
 
     private final StoreReservationService storeReservationService;
 
+    /**
+     * 
+     * 예약하기 기능
+     * 
+     * @param authentication
+     * @param request
+     * @return
+     */
     @PostMapping
     public ResponseEntity<String> makeReservation(
             Authentication authentication,
@@ -26,6 +34,14 @@ public class StoreReservationController {
         );
     }
 
+    /**
+     * 
+     * 키오스크에서 방문 확인용 기능
+     * 
+     * @param authentication
+     * @param reservationToken
+     * @return
+     */
     @GetMapping("/{reservationToken}/check-in")
     public ResponseEntity<Void> checkInReservation(
             Authentication authentication,

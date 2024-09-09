@@ -28,6 +28,13 @@ public class ReviewService {
     private final StoreReservationRepository storeReservationRepository;
     private final StoreOwnerRepository storeOwnerRepository;
 
+    /**
+     *
+     * 리뷰 등록 기능
+     *
+     * @param command
+     * @return
+     */
     public String registerReview(ReviewCommand.RegisterReview command) {
 
         Customer customer = customerRepository.findByCustomerToken(command.getCustomerToken())
@@ -56,6 +63,13 @@ public class ReviewService {
         return review.getReviewToken();
     }
 
+    /**
+     *
+     * 리뷰 수정 기능
+     *
+     * @param command
+     * @return
+     */
     public String updateReview(ReviewCommand.UpdateReview command) {
         Review review = reviewRepository.findByReviewToken(command.getReviewToken())
                 .orElseThrow(() -> new BaseException(ReviewErrorCode.NOT_FOUND_REVIEW));
@@ -76,6 +90,14 @@ public class ReviewService {
         return review.getReviewToken();
     }
 
+    /**
+     *
+     * 리뷰 등록시 유효성 검사
+     *
+     * @param customer
+     * @param store
+     * @param storeReservation
+     */
     private void registerReviewValidation(Customer customer, Store store, StoreReservation storeReservation) {
 
         if (!customer.getId().equals(storeReservation.getCustomerId())) {
@@ -91,6 +113,13 @@ public class ReviewService {
         }
     }
 
+    /**
+     *
+     * 별점 저장 기능
+     *
+     * @param store
+     * @param review
+     */
     private void addStoreStarPoint(Store store, Review review) {
 
         long starPointCount = store.getStarPointCount();
@@ -102,6 +131,14 @@ public class ReviewService {
         storeRepository.save(store);
     }
 
+    /**
+     *
+     * 별점 수정 기능
+     *
+     * @param store
+     * @param currentStarPoint
+     * @param oldStarPoint
+     */
     private void updateStoreStarPoint(Store store, double currentStarPoint, double oldStarPoint) {
 
         long starPointCount = store.getStarPointCount();
@@ -114,6 +151,14 @@ public class ReviewService {
         storeRepository.save(store);
     }
 
+    /**
+     *
+     * 리뷰 삭제 기능
+     *
+     * @param reviewToken
+     * @param userToken
+     * @param userType
+     */
     public void deleteReview(String reviewToken, String userToken, UserType userType) {
 
         Review review = reviewRepository.findByReviewToken(reviewToken)

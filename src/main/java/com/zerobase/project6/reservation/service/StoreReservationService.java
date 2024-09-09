@@ -27,6 +27,11 @@ public class StoreReservationService {
     private final StoreRepository storeRepository;
     private final CustomerRepository customerRepository;
 
+    /**
+     * 예약 기능
+     * @param command
+     * @return
+     */
     public String makeReservation(StoreReservationCommand.ReservationRequest command) {
 
         Customer customer = customerRepository.findByCustomerToken(command.getCustomerToken())
@@ -46,6 +51,13 @@ public class StoreReservationService {
         return storeReservationRepository.save(reservation).getReservationToken();
     }
 
+    /**
+     * check in 기능
+     * 
+     * 예약한 시간 10분~30분 전에만 check in 가능 
+     * 
+     * @param command
+     */
     public void checkInReservation(StoreReservationCommand.CheckInReservation command) {
         StoreReservation storeReservation = storeReservationRepository.findByReservationToken(command.getReservationToken())
                 .orElseThrow(() -> new BaseException(ReservationErrorCode.NOT_FOUND_RESERVATION));

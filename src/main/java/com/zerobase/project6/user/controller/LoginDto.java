@@ -4,6 +4,11 @@ import com.zerobase.project6.user.service.LoginCommand;
 import lombok.Builder;
 import lombok.Data;
 
+/**
+ * client request, response DTO
+ *
+ * 로그인용 DTO
+ */
 @Data
 @Builder
 public class LoginDto {

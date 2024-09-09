@@ -7,8 +7,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * client request, response DTO
+ */
 public class SignUpDto {
 
+    /**
+     * 사용자 회원가입 request DTO
+     */
     @Data
     public static class RegisterCustomerRequest {
         private String loginId;
@@ -24,6 +30,9 @@ public class SignUpDto {
         }
     }
 
+    /**
+     * 사용자 회원가입 response DTO
+     */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
@@ -42,6 +51,9 @@ public class SignUpDto {
         }
     }
 
+    /**
+     * 가게 관리자 회원가입 request DTO
+     */
     @Data
     public static class RegisterStoreOwnerRequest {
         private String loginId;
@@ -57,6 +69,9 @@ public class SignUpDto {
         }
     }
 
+    /**
+     * 가게 관리자 회원가입 response DTO
+     */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor

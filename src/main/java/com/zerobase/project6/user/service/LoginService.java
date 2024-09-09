@@ -18,6 +18,13 @@ public class LoginService {
     private final CustomerRepository customerRepository;
     private final StoreOwnerRepository storeOwnerRepository;
 
+    /**
+     * 
+     * 사용자 로그인
+     * 
+     * @param command
+     * @return
+     */
     public LoginInfo.CustomerInfo loginCustomer(LoginCommand command) {
 
         Customer customer = customerRepository.findByLoginId(command.getLoginId())
@@ -31,6 +38,13 @@ public class LoginService {
 
     }
 
+    /**
+     * 
+     * 가게 관리자 로그인
+     * 
+     * @param command
+     * @return
+     */
     public LoginInfo.StoreOwnerInfo loginStoreOwner(LoginCommand command) {
 
         StoreOwner storeOwner = storeOwnerRepository.findByLoginId(command.getLoginId())
@@ -44,6 +58,16 @@ public class LoginService {
 
     }
 
+    /**
+     * 
+     * 유저 정보 load 기능
+     * 
+     * TODO : 추후 loginService 클래스에서 다른 클래스로 분리 필요
+     * 
+     * @param userToken
+     * @param userType
+     * @return
+     */
     public UserDetails loadUserByUserToken(String userToken, UserType userType) {
 
         if (UserType.CUSTOMER.equals(userType)) {

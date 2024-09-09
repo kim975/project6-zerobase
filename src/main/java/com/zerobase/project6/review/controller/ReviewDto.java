@@ -3,8 +3,14 @@ package com.zerobase.project6.review.controller;
 import com.zerobase.project6.review.service.ReviewCommand;
 import lombok.Data;
 
+/**
+ * client request, response DTO
+ */
 public class ReviewDto {
 
+    /**
+     * 리뷰 등록 DTO
+     */
     @Data
     public static class RegisterReview {
         private String storeToken;
@@ -24,6 +30,9 @@ public class ReviewDto {
         }
     }
 
+    /**
+     * 리뷰 수정 DTO
+     */
     @Data
     public static class UpdateReview {
         private String reviewToken;

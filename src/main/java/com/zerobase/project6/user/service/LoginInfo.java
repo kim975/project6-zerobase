@@ -18,8 +18,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * service에서 return용 DTO
+ */
 public class LoginInfo {
 
+    /**
+     * 사용자 로그인 return DTO
+     */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
@@ -65,6 +71,9 @@ public class LoginInfo {
         }
     }
 
+    /**
+     * 가게 관리자 로그인 return DTO
+     */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor

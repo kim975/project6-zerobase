@@ -22,6 +22,14 @@ public class StoreService {
     private final StoreRepository storeRepository;
     private final StoreOwnerRepository storeOwnerRepository;
 
+    /**
+     * 
+     * 가게 등록 기능
+     * 
+     * @param command
+     * @param storeOwnerToken
+     * @return
+     */
     public String registerStore(StoreCommand.RegisterStore command, String storeOwnerToken) {
 
         StoreOwner storeOwner = storeOwnerRepository.findByStoreOwnerToken(storeOwnerToken)
@@ -35,6 +43,14 @@ public class StoreService {
         return storeRepository.save(store).getStoreToken();
     }
 
+    /**
+     * 
+     * 가게 수정 기능
+     * 
+     * @param command
+     * @param storeOwnerToken
+     * @return
+     */
     public String updateStore(StoreCommand.UpdateStore command, String storeOwnerToken) {
 
         Store store = storeRepository.findByStoreToken(command.getStoreToken())
@@ -54,6 +70,13 @@ public class StoreService {
         return storeRepository.save(store).getStoreToken();
     }
 
+    /**
+     * 
+     * 가게 삭제 기능
+     * 
+     * @param command
+     * @param storeOwnerToken
+     */
     public void deleteStore(StoreCommand.DeleteStore command, String storeOwnerToken) {
 
         Store store = storeRepository.findByStoreToken(command.getStoreToken())
@@ -69,10 +92,25 @@ public class StoreService {
         storeRepository.delete(store);
     }
 
+    /**
+     * 
+     * 가게 목록 검색
+     * 
+     * @param pageable
+     * @return
+     */
     public Page<StoreInfo> getAllStore(Pageable pageable) {
         return storeRepository.findAll(pageable).map(StoreInfo::of);
     }
 
+
+    /**
+     * 
+     * 가게 상세 검색
+     * 
+     * @param storeToken
+     * @return
+     */
     public StoreInfo getStoreByStoreToken(String storeToken) {
         return StoreInfo.of(
                 storeRepository.findByStoreToken(storeToken)

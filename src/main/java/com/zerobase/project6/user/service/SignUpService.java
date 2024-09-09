@@ -18,6 +18,13 @@ public class SignUpService {
     private final CustomerRepository customerRepository;
     private final StoreOwnerRepository storeOwnerRepository;
 
+    /**
+     *
+     * 사용자 회원가입 기능
+     *
+     * @param command
+     * @return
+     */
     public SignUpInfo.CustomerInfo signUpCustomer(SignUpCommand.RegisterCustomer command) {
 
         Customer customer = command.toEntity();
@@ -27,6 +34,13 @@ public class SignUpService {
         return SignUpInfo.CustomerInfo.of(customerRepository.save(customer));
     }
 
+    /**
+     *
+     * 가게 관리자 회원 가입 기능
+     *
+     * @param command
+     * @return
+     */
     public SignUpInfo.StoreOwnerInfo signUpStoreOwner(SignUpCommand.RegisterStoreOwner command) {
 
         StoreOwner storeOwner = command.toEntity();

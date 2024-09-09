@@ -3,9 +3,15 @@ package com.zerobase.project6.review.service;
 import lombok.Builder;
 import lombok.Data;
 
+/**
+ * service에서 사용하는 DTO
+ */
 public class ReviewCommand {
 
 
+    /**
+     * 리뷰 등록용 DTO
+     */
     @Data
     @Builder
     public static class RegisterReview {
@@ -17,6 +23,9 @@ public class ReviewCommand {
         private Double starPoint;
     }
 
+    /**
+     * 리뷰 수정 DTO
+     */
     @Data
     @Builder
     public static class UpdateReview {

@@ -15,6 +15,13 @@ public class SignUpController {
 
     private final SignUpService signUpService;
 
+    /**
+     *
+     * 사용자 회원가입
+     *
+     * @param request
+     * @return
+     */
     @PostMapping("/customer")
     public ResponseEntity<SignUpDto.RegisterCustomerResponse> registerCustomer(
             @RequestBody SignUpDto.RegisterCustomerRequest request
@@ -24,6 +31,13 @@ public class SignUpController {
                 );
     }
 
+    /**
+     *
+     * 가게 관리자 회원가입
+     *
+     * @param request
+     * @return
+     */
     @PostMapping("/store-owner")
     public ResponseEntity<SignUpDto.RegisterStoreOwnerResponse> registerStoreOwner(
             @RequestBody SignUpDto.RegisterStoreOwnerRequest request

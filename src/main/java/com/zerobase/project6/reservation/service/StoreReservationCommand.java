@@ -1,13 +1,18 @@
 package com.zerobase.project6.reservation.service;
 
-import com.zerobase.project6.reservation.domain.model.StoreReservation;
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * service에서 사용하는 DTO
+ */
 public class StoreReservationCommand {
 
+    /**
+     * 예약하기 DTO
+     */
     @Data
     @Builder
     public static class ReservationRequest {
@@ -16,6 +21,9 @@ public class StoreReservationCommand {
         private LocalDateTime reservationDate;
     }
 
+    /**
+     * check-in DTO
+     */
     @Data
     @Builder
     public static class CheckInReservation {

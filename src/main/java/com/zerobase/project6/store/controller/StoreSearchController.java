@@ -15,6 +15,13 @@ public class StoreSearchController {
 
     private final StoreService storeService;
 
+    /**
+     *
+     * 가게 상세 정보 search
+     *
+     * @param storeToken
+     * @return
+     */
     @GetMapping("/store/{storeToken}/detail")
     public ResponseEntity<StoreDto.StoreInfoResponse> searchStore(
             @PathVariable String storeToken
@@ -22,6 +29,15 @@ public class StoreSearchController {
         return ResponseEntity.ok(StoreDto.StoreInfoResponse.of(storeService.getStoreByStoreToken(storeToken)));
     }
 
+    /**
+     *
+     * 가게 목록 search
+     *
+     * pageable 사용 : sort 시 starPoint, name 등으로 정렬 가능
+     *
+     * @param pageable
+     * @return
+     */
     @GetMapping("/stores")
     public ResponseEntity<Page<StoreDto.StoreInfoResponse>> searchStoreList(
             Pageable pageable

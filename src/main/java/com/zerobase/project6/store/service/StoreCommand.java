@@ -4,8 +4,14 @@ import com.zerobase.project6.store.domain.model.Store;
 import lombok.Builder;
 import lombok.Data;
 
+/**
+ * service에서 사용하는 DTO
+ */
 public class StoreCommand {
 
+    /**
+     * 가게 등록 DTO
+     */
     @Data
     @Builder
     public static class RegisterStore {
@@ -24,6 +30,9 @@ public class StoreCommand {
         }
     }
 
+    /**
+     * 가게 수정 DTO
+     */
     @Data
     @Builder
     public static class UpdateStore {
@@ -35,6 +44,9 @@ public class StoreCommand {
 
     }
 
+    /**
+     * 가게 삭제 DTO
+     */
     @Data
     @Builder
     public static class DeleteStore {

@@ -6,8 +6,14 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.domain.Page;
 
+/**
+ * client request, response DTO
+ */
 public class StoreDto {
 
+    /**
+     * 가게 등록 DTO
+     */
     @Data
     public static class RegisterStore {
         private String name;
@@ -23,6 +29,9 @@ public class StoreDto {
         }
     }
 
+    /**
+     * 가게 수정 DTO
+     */
     @Data
     public static class UpdateStore {
 
@@ -41,6 +50,9 @@ public class StoreDto {
         }
     }
 
+    /**
+     * 가게 삭제 DTO
+     */
     @Data
     public static class DeleteStore {
 
@@ -53,6 +65,9 @@ public class StoreDto {
         }
     }
 
+    /**
+     * 가게 정보 response DTO
+     */
     @Data
     @Builder
     public static class StoreInfoResponse {

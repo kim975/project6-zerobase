@@ -20,6 +20,14 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
+    /**
+     * 
+     * 리뷰 등록 
+     * 
+     * @param authentication
+     * @param request
+     * @return
+     */
     @PostMapping
     @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<String> registerReview(
@@ -29,6 +37,14 @@ public class ReviewController {
         return ResponseEntity.ok(reviewService.registerReview(request.toCommand(authentication.getName())));
     }
 
+    /**
+     * 
+     * 리뷰 수정
+     * 
+     * @param authentication
+     * @param request
+     * @return
+     */
     @PutMapping
     @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<String> updateReview(
@@ -38,6 +54,12 @@ public class ReviewController {
         return ResponseEntity.ok(reviewService.updateReview(request.toCommand(authentication.getName())));
     }
 
+    /**
+     * 리뷰 삭제
+     * @param authentication
+     * @param reviewToken
+     * @return
+     */
     @DeleteMapping("/{reviewToken}")
     @PreAuthorize("hasAnyRole('STORE_OWNER', 'CUSTOMER')")
     public ResponseEntity<Void> deleteReview(

@@ -7,8 +7,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * service에서 return용 DTO
+ */
 public class SignUpInfo {
 
+    /**
+     * 사용자 회원가입 return DTO
+     */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
@@ -27,6 +33,9 @@ public class SignUpInfo {
         }
     }
 
+    /**
+     * 가게 관리자 회원가입 return DTO
+     */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor

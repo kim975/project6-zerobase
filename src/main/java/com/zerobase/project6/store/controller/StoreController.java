@@ -15,6 +15,14 @@ public class StoreController {
 
     private final StoreService storeService;
 
+    /**
+     *
+     * 가게 등록
+     *
+     * @param authentication
+     * @param request
+     * @return
+     */
     @PostMapping
     public ResponseEntity<String> registerStore(
             Authentication authentication,
@@ -24,6 +32,14 @@ public class StoreController {
         return ResponseEntity.ok(storeService.registerStore(request.toCommand(), storeOwnerToken));
     }
 
+    /**
+     * 
+     * 가게 수정 기능
+     * 
+     * @param authentication
+     * @param request
+     * @return
+     */
     @PutMapping
     public ResponseEntity<String> updateStore(
             Authentication authentication,
@@ -33,6 +49,12 @@ public class StoreController {
         return ResponseEntity.ok(storeService.updateStore(request.toCommand(), storeOwnerToken));
     }
 
+    /**
+     * 가게 삭제 기능
+     * @param authentication
+     * @param request
+     * @return
+     */
     @DeleteMapping
     public ResponseEntity<String> deleteStore(
             Authentication authentication,

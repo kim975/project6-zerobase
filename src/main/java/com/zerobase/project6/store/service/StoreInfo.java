@@ -4,6 +4,9 @@ import com.zerobase.project6.store.domain.model.Store;
 import lombok.Builder;
 import lombok.Data;
 
+/**
+ * service에서 return용 DTO
+ */
 @Data
 @Builder
 public class StoreInfo {

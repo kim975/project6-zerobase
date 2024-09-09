@@ -54,7 +54,7 @@ public class ReviewService {
                 .customerId(customer.getId())
                 .starPoint(command.getStarPoint())
                 .storeId(store.getId())
-                .reservationId(storeReservation.getId())
+                .storeReservationId(storeReservation.getId())
                 .build());
 
 

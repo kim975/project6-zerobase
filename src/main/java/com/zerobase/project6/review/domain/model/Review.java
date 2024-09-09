@@ -21,7 +21,7 @@ public class Review extends BaseEntity {
 
     private Long customerId;
     private Long storeId;
-    private Long reservationId;
+    private Long storeReservationId;
 
     private String text;
     private Double starPoint;
